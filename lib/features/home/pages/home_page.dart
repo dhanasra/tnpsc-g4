@@ -1,61 +1,137 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tnpsc_g4/app/routes/app_routes.dart';
+import 'package:tnpsc_g4/app/routes/route_names.dart';
 
-import '../../../core/extensions/size_extensions.dart';
-import '../../../core/extensions/string_extensions.dart';
-import '../widgets/daily_quiz_banner.dart';
-import '../widgets/quiz_options_row.dart';
-import '../widgets/recent_activities.dart';
-import '../widgets/streak_row.dart';
-
+import '../../../core/models/quiz_question.dart';
+import '../bloc/home_bloc.dart';
+import '../widgets/daily_challenge_card.dart';
+import '../widgets/header.dart';
+import '../widgets/practice_mode_card.dart';
+import '../widgets/week_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: colors.surfaceContainerLow,
-      appBar: AppBar(
-        backgroundColor: colors.surface,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            'Good Morning 👋'.titleLarge(context),
-            'Let\'s keep the streak going!'.bodyLarge(context),
-          ],
-        ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 12),
-            decoration: BoxDecoration(
-              color: colors.surfaceContainerHighest,
-              shape: BoxShape.circle,
+      backgroundColor: const Color(0xFFF2F2F7),
+      body: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+
+          final streak = state is HomeLoaded
+              ? '${state.overall.dayStreak}'
+              : '—';
+          final totalQ = state is HomeLoaded
+              ? '${state.overall.totalQuestionsPracticed}'
+              : '—';
+          final weekQuestions = state is HomeLoaded
+              ? '${state.weekly.totalQuestions}'
+              : '—';
+          final weekAccuracy = state is HomeLoaded
+              ? '${state.weekly.totalQuestions == 0 ? 0 : ((state.weekly.totalCorrect / state.weekly.totalQuestions) * 100).round()}%'
+              : '—';
+          final weekHours = state is HomeLoaded
+              ? _formatHours(state.weekly.totalTimeSecs)
+              : '—';
+
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                HeaderSection(streak: streak, totalQuestions: totalQ),
+
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  child: DailyChallengeCard(),
+                ),
+
+                const SizedBox(height: 28),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'Practice Modes',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF1C1C1E),
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: PracticeModeCard(
+                    icon: Icons.menu_book_rounded,
+                    iconBg: const Color(0xFFEEF2FF),
+                    iconColor: const Color(0xFF3B5BDB),
+                    title: 'Previous Year Questions',
+                    subtitle: 'Practice by year & subject',
+                    onTap: () => AppRoutes.push(
+                      context,
+                      RouteNames.previousYearQuestions,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: PracticeModeCard(
+                    icon: Icons.track_changes_rounded,
+                    iconBg: const Color(0xFFF3E8FF),
+                    iconColor: const Color(0xFF9333EA),
+                    title: 'Random Practice',
+                    subtitle: 'Mixed questions from all topics',
+                    onTap: () => AppRoutes.push(
+                      context,
+                      RouteNames.quiz,
+                      arguments: {'type': QuizType.random},
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 28),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'This Week',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF1C1C1E),
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ThisWeekCard(
+                    questions: weekQuestions,
+                    accuracy: weekAccuracy,
+                    timeSpent: weekHours,
+                  ),
+                ),
+
+                const SizedBox(height: 32),
+              ],
             ),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.settings_outlined, color: colors.primary),
-              iconSize: 20,
-            ),
-          ),
-        ],
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          StreakRow(),
-          16.h,
-          DailyQuizBanner(),
-          16.h,
-          QuizOptionsRow(),
-          16.h,
-          RecentActivities(),
-        ],
+          );
+        },
       ),
     );
+  }
+
+  String _formatHours(int totalSecs) {
+    if (totalSecs >= 3600) {
+      final h = totalSecs / 3600;
+      return '${h.toStringAsFixed(1)}h';
+    }
+    final m = totalSecs ~/ 60;
+    return '${m}m';
   }
 }

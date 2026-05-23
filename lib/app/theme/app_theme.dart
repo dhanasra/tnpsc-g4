@@ -46,19 +46,19 @@ class AppTheme {
 
   static final TextTheme _textTheme = TextTheme(
     // Display
-    displayLarge: GoogleFonts.poppins(
+    displayLarge: GoogleFonts.plusJakartaSans(
       fontSize: 57,
       fontWeight: FontWeight.w800,
       letterSpacing: -2,
       height: 1.1,
     ),
-    displayMedium: GoogleFonts.poppins(
+    displayMedium: GoogleFonts.plusJakartaSans(
       fontSize: 45,
       fontWeight: FontWeight.w800,
       letterSpacing: -1.5,
       height: 1.15,
     ),
-    displaySmall: GoogleFonts.poppins(
+    displaySmall: GoogleFonts.plusJakartaSans(
       fontSize: 36,
       fontWeight: FontWeight.w700,
       letterSpacing: -1,
@@ -66,63 +66,63 @@ class AppTheme {
     ),
 
     // Headlines
-    headlineLarge: GoogleFonts.poppins(
+    headlineLarge: GoogleFonts.plusJakartaSans(
       fontSize: 32,
       fontWeight: FontWeight.w700,
       letterSpacing: -0.8,
     ),
-    headlineMedium: GoogleFonts.poppins(
+    headlineMedium: GoogleFonts.plusJakartaSans(
       fontSize: 28,
       fontWeight: FontWeight.w700,
       letterSpacing: -0.5,
     ),
-    headlineSmall: GoogleFonts.poppins(
+    headlineSmall: GoogleFonts.plusJakartaSans(
       fontSize: 24,
       fontWeight: FontWeight.w700,
       letterSpacing: -0.3,
     ),
 
     // Titles
-    titleLarge: GoogleFonts.poppins(
+    titleLarge: GoogleFonts.plusJakartaSans(
       fontSize: 20,
       fontWeight: FontWeight.w700,
     ),
-    titleMedium: GoogleFonts.poppins(
+    titleMedium: GoogleFonts.plusJakartaSans(
       fontSize: 16,
       fontWeight: FontWeight.w600,
     ),
-    titleSmall: GoogleFonts.poppins(
+    titleSmall: GoogleFonts.plusJakartaSans(
       fontSize: 14,
       fontWeight: FontWeight.w600,
     ),
 
     // Body
-    bodyLarge: GoogleFonts.poppins(
+    bodyLarge: GoogleFonts.plusJakartaSans(
       fontSize: 16,
       fontWeight: FontWeight.w400,
       height: 1.55,
     ),
-    bodyMedium: GoogleFonts.poppins(
+    bodyMedium: GoogleFonts.plusJakartaSans(
       fontSize: 14,
       fontWeight: FontWeight.w400,
       height: 1.5,
     ),
-    bodySmall: GoogleFonts.poppins(
+    bodySmall: GoogleFonts.plusJakartaSans(
       fontSize: 12,
       fontWeight: FontWeight.w400,
       height: 1.45,
     ),
 
     // Labels
-    labelLarge: GoogleFonts.poppins(
+    labelLarge: GoogleFonts.plusJakartaSans(
       fontSize: 14,
       fontWeight: FontWeight.w600,
     ),
-    labelMedium: GoogleFonts.poppins(
+    labelMedium: GoogleFonts.plusJakartaSans(
       fontSize: 12,
       fontWeight: FontWeight.w600,
     ),
-    labelSmall: GoogleFonts.poppins(
+    labelSmall: GoogleFonts.plusJakartaSans(
       fontSize: 10,
       fontWeight: FontWeight.w600,
     ),
