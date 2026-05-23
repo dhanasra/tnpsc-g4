@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tnpsc_g4/app/routes/app_routes.dart';
 import 'package:tnpsc_g4/app/routes/route_names.dart';
+import 'package:tnpsc_g4/core/ads/widgets/banner_ad_widget.dart';
 
+import '../../../core/ads/widgets/interstitial_ad_service.dart';
 import '../../../core/models/quiz_question.dart';
 import '../bloc/home_bloc.dart';
 import '../widgets/daily_challenge_card.dart';
@@ -10,13 +12,27 @@ import '../widgets/header.dart';
 import '../widgets/practice_mode_card.dart';
 import '../widgets/week_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+
+  @override
+  void initState() {
+    InterstitialAdService.load();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F7),
+      bottomNavigationBar: BannerAdWidget(),
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tnpsc_g4/core/extensions/size_extensions.dart';
 import 'package:tnpsc_g4/core/extensions/string_extensions.dart';
 
 import '../../../app/routes/app_routes.dart';
@@ -23,7 +24,14 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: "Kalvipura".displayLarge(context)
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            "Kalvipura".displayLarge(context),
+            8.h,
+            "TNPSC - General Tamil Practice".bodyLarge(context)
+          ],
+        )
       ),
     );
   }

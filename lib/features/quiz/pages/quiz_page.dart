@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app/routes/app_routes.dart';
 import '../../../app/routes/route_names.dart';
+import '../../../core/ads/widgets/banner_ad_widget.dart';
+import '../../../core/ads/widgets/interstitial_ad_service.dart';
 import '../../../core/models/quiz_question.dart';
 import '../bloc/quiz_bloc.dart';
 import '../widgets/option_tile.dart';
@@ -38,6 +40,7 @@ class _QuizViewState extends State<_QuizView> {
   @override
   void initState() {
     super.initState();
+    InterstitialAdService.load();
     _startTimer();
   }
 
@@ -70,6 +73,7 @@ class _QuizViewState extends State<_QuizView> {
     return BlocConsumer<QuizBloc, QuizState>(
       listener: (context, state) {
         if (state is QuizFinished) {
+          InterstitialAdService.show();
           AppRoutes.pushAndRemoveUntil(context, RouteNames.quizResult, arguments: context);
         }
       },
@@ -176,6 +180,7 @@ class _QuizContent extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F7),
+      bottomNavigationBar: BannerAdWidget(),
       body: SafeArea(
         child: Column(
           children: [

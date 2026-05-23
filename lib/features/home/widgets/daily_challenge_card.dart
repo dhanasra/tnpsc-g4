@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/routes/app_routes.dart';
 import '../../../app/routes/route_names.dart';
+import '../../../core/ads/widgets/interstitial_ad_service.dart';
 import '../../../core/models/quiz_question.dart';
 
 class DailyChallengeCard extends StatelessWidget {
@@ -12,9 +13,12 @@ class DailyChallengeCard extends StatelessWidget {
     return Transform.translate(
       offset: const Offset(0, -20),
       child: GestureDetector(
-        onTap: ()=>AppRoutes.push(context, RouteNames.quiz, arguments: {
-          'type': QuizType.dailyQuiz,
-        }),
+        onTap: (){
+          InterstitialAdService.show();
+          AppRoutes.push(context, RouteNames.quiz, arguments: {
+            'type': QuizType.dailyQuiz,
+          });
+        },
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.all(20),
